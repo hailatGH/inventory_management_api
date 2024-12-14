@@ -1,20 +1,22 @@
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import AbstractUser
 from django.core.validators import EmailValidator, RegexValidator
 from django.db import models
 
-from config.models import Timestamps
-from user.managers import CustomUserManager
+from utils.models import Timestamps
 
 
-# Users model
-class Users(Timestamps, AbstractBaseUser, PermissionsMixin):
+class Users(Timestamps, AbstractUser):
+    # Remove the default username field
+    username = None
 
-    first_name = models.CharField(max_length=150, null=False)
-    last_name = models.CharField(max_length=150, null=False)
+    # Email field (unique)
     email = models.EmailField(
         unique=True,
         validators=[EmailValidator(message="Enter a valid email address.")],
+        error_messages={"unique": "A user with this email already exists."},
     )
+
+    # Phone number field
     phone_number = models.CharField(
         max_length=13,
         unique=True,
@@ -25,12 +27,9 @@ class Users(Timestamps, AbstractBaseUser, PermissionsMixin):
             )
         ],
     )
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
 
-    objects = CustomUserManager()
-
-    USERNAME_FIELD = "email"
+    USERNAME_FIELD = "email"  # Set email as the unique identifier
+    REQUIRED_FIELDS = ["first_name", "last_name", "phone_number"]
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

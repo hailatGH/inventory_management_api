@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 
 from dotenv import load_dotenv
 
@@ -6,8 +7,15 @@ from config.settings.base import *  # noqa: F403,F401
 
 load_dotenv()
 
-INSTALLED_APPS += ["user", "rest_framework"]  # noqa: F405
+INSTALLED_APPS += ["user", "rest_framework", "rest_framework_simplejwt"]  # noqa: F405
+
 AUTH_USER_MODEL = "user.Users"
+
+# Simple JWT conf
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=60),
+}
 
 # Import setting based on debug val
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
