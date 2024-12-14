@@ -40,5 +40,4 @@ jobs:
       # Step 5: Activate Poetry virtual environment and run pre-commit
       - name: Run Pre-Commit
         run: |
-          source $(poetry env info --path)/bin/activate
-          pre-commit run --all-files
+          poetry run pre-commit run --all-file
