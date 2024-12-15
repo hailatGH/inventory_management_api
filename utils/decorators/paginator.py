@@ -18,6 +18,12 @@ def paginate_response():
                 queryset, request, view=self
             )
 
+            if not paginated_queryset:
+                return Response(
+                    {"detail": "No data available.", "results": []},
+                    status=status.HTTP_200_OK,
+                )
+
             # Serialize paginated data
             serializer = self.serializer_class(paginated_queryset, many=True)
             return paginator.get_paginated_response(serializer.data)
