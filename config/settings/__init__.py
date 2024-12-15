@@ -12,6 +12,7 @@ INSTALLED_APPS += [  # noqa: F405
     "rest_framework_simplejwt",
     "user",
     "warehouse",
+    "product",
 ]
 
 AUTH_USER_MODEL = "user.Users"
