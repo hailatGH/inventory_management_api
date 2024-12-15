@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from user.serializers import GroupsSerializer
-from utils.decorators import paginate_response
+from utils.decorators import check_permissions, paginate_response
 
 
 class GroupsAPIView(APIView):
@@ -16,6 +16,7 @@ class GroupsAPIView(APIView):
     permission_classes = [IsAuthenticated]
     serializer_class = GroupsSerializer
 
+    @check_permissions(custom_permissions=["view_group"])
     @paginate_response()
     def get(self, request, pk=None):
         if pk:
@@ -23,6 +24,7 @@ class GroupsAPIView(APIView):
         else:
             return Group.objects.all()
 
+    @check_permissions(custom_permissions=["add_group"])
     def post(self, request):
         name = request.data.get("name")
         if not name:
@@ -35,6 +37,7 @@ class GroupsAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    @check_permissions(custom_permissions=["change_group"])
     def patch(self, request, pk):
         group = get_object_or_404(Group, pk=pk)
 
@@ -44,6 +47,7 @@ class GroupsAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    @check_permissions(custom_permissions=["delete_group"])
     def delete(self, request, pk):
         group = get_object_or_404(Group, pk=pk)
         group.delete()

@@ -24,6 +24,7 @@ class UsersAPIView(APIView):
         else:
             return Users.objects.all()
 
+    @check_permissions(custom_permissions=["add_users"])
     def post(self, request):
         password = request.data.get("password")
         if not password:
@@ -37,6 +38,7 @@ class UsersAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    @check_permissions(custom_permissions=["change_users"])
     def patch(self, request, pk):
         user = get_object_or_404(Users, pk=pk)
         password = request.data.get("password")
@@ -50,6 +52,7 @@ class UsersAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    @check_permissions(custom_permissions=["delete_users"])
     def delete(self, request, pk):
         user = get_object_or_404(Users, pk=pk)
         user.delete()

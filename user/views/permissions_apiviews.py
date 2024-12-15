@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from user.serializers import PermissionsSerializer
-from utils.decorators import paginate_response
+from utils.decorators import check_permissions, paginate_response
 
 
 class PermissionsAPIView(APIView):
@@ -13,6 +13,7 @@ class PermissionsAPIView(APIView):
     permission_classes = [IsAuthenticated]
     serializer_class = PermissionsSerializer
 
+    @check_permissions(custom_permissions=["view_permission"])
     @paginate_response()
     def get(self, request, pk=None):
         if pk:
