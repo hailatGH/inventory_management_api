@@ -10,16 +10,22 @@ class Command(BaseCommand):
         # Create the ADMIN group
         admin_group, created = Group.objects.get_or_create(name="ADMIN")
 
-        if created:
-            # Assign all permissions to the ADMIN group
-            all_permissions = Permission.objects.all()
-            admin_group.permissions.set(all_permissions)
+        # Assign all permissions to the ADMIN group
+        all_permissions = Permission.objects.all()
+        current_permissions = admin_group.permissions.all()
+
+        # Update group permissions if new ones are found
+        new_permissions = all_permissions.difference(current_permissions)
+        if new_permissions:
+            admin_group.permissions.add(*new_permissions)
             admin_group.save()
             self.stdout.write(
-                self.style.SUCCESS("ADMIN group created and all permissions assigned.")
+                self.style.SUCCESS("ADMIN group updated with new permissions.")
             )
         else:
-            self.stdout.write(self.style.WARNING("ADMIN group already exists."))
+            self.stdout.write(
+                self.style.WARNING("No new permissions found for the ADMIN group.")
+            )
 
         # Create a user and add to the ADMIN group
         User = get_user_model()

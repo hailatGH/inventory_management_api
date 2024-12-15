@@ -1,3 +1,5 @@
+import uuid
+
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import EmailValidator, RegexValidator
 from django.db import models
@@ -6,6 +8,8 @@ from utils.models import Timestamps
 
 
 class Users(Timestamps, AbstractUser):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
     # Remove the default username field
     username = None
 
