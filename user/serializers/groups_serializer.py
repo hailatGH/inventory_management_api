@@ -5,4 +5,4 @@ from rest_framework.serializers import ModelSerializer
 class GroupsSerializer(ModelSerializer):
     class Meta:
         model = Group
-        fields = ["name", "permissions"]
+        fields = ["id", "name", "permissions"]

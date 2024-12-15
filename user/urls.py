@@ -19,7 +19,7 @@ urlpatterns = [
         name="group-create-list",
     ),
     path(
-        "groups/<uuid:pk>/",
+        "groups/<int:pk>/",
         GroupsAPIView.as_view(),
         name="group-detail-patch-delete",
     ),

@@ -14,4 +14,7 @@ class UsersSerializer(ModelSerializer):
             "phone_number",
             "is_active",
             "date_joined",
+            "groups",
+            "created_at",
+            "updated_at",
         ]

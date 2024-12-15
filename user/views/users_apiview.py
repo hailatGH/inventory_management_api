@@ -8,7 +8,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from user.models import Users
 from user.serializers import UsersSerializer
-from utils.decorators import paginate_response
+from utils.decorators import check_permissions, paginate_response
 
 
 class UsersAPIView(APIView):
@@ -16,6 +16,7 @@ class UsersAPIView(APIView):
     permission_classes = [IsAuthenticated]
     serializer_class = UsersSerializer
 
+    @check_permissions(custom_permissions=["view_users"])
     @paginate_response()
     def get(self, request, pk=None):
         if pk:
