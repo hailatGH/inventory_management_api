@@ -7,7 +7,12 @@ from config.settings.base import *  # noqa: F403,F401
 
 load_dotenv()
 
-INSTALLED_APPS += ["user", "rest_framework", "rest_framework_simplejwt"]  # noqa: F405
+INSTALLED_APPS += [  # noqa: F405
+    "rest_framework",
+    "rest_framework_simplejwt",
+    "user",
+    "warehouse",
+]
 
 AUTH_USER_MODEL = "user.Users"
 
