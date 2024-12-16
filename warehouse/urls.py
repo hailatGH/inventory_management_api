@@ -10,7 +10,7 @@ urlpatterns = [
         name="warehouse-detail-patch-delete",
     ),
     path(
-        "stocks/<uuid:warehouse_id>/",
+        "warehouse/<uuid:warehouse_id>/stocks/",
         StocksAPIView.as_view(),
         name="warehouse-stock-list",
     ),

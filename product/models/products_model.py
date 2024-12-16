@@ -3,7 +3,8 @@ import uuid
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
-from product.models import Categories, Units
+from product.models.categories_model import Categories
+from product.models.units_model import Units
 from utils.models import Timestamps
 
 

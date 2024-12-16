@@ -6,4 +6,4 @@ from product.models import Categories
 class CategoriesSerializer(ModelSerializer):
     class Meta:
         model = Categories
-        fields = ["id", "name"]
+        fields = "__all__"

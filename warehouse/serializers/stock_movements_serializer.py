@@ -5,7 +5,7 @@ from warehouse.models import Stocks
 from warehouse.serializers.warehouses_serializer import WarehousesSerializer
 
 
-class StocksSerializer(ModelSerializer):
+class StockMovementsSerializer(ModelSerializer):
     warehouse = WarehousesSerializer(read_only=True)
     product = ProductsSerializer(read_only=True)
 
