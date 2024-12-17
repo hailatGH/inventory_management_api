@@ -13,6 +13,7 @@ INSTALLED_APPS += [  # noqa: F405
     "user",
     "warehouse",
     "product",
+    "sale",
 ]
 
 AUTH_USER_MODEL = "user.Users"

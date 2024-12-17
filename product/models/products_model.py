@@ -11,8 +11,8 @@ from utils.models import Timestamps
 class Products(Timestamps):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=150, unique=True)
-    purchase_price = models.DecimalField(max_digits=7, decimal_places=2, null=False)
-    retail_price = models.DecimalField(max_digits=7, decimal_places=2, null=False)
+    purchase_price = models.DecimalField(max_digits=13, decimal_places=2, null=False)
+    retail_price = models.DecimalField(max_digits=13, decimal_places=2, null=False)
     sale_percentage = models.IntegerField(
         null=False, validators=[MinValueValidator(0), MaxValueValidator(100)]
     )
