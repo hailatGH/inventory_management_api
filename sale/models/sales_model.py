@@ -21,11 +21,7 @@ class Sales(Timestamps):
     quantity = models.IntegerField(null=False, validators=[MinValueValidator(1)])
     remark = models.CharField(max_length=1024, null=True, blank=True)
     slip_image = models.ImageField(
-        upload_to=banck_slip_upload,
-        max_length=1024,
-        null=False,
-        blank=False,
-        unique=True,
+        upload_to=banck_slip_upload, max_length=1024, null=True, blank=True
     )
     is_credit = models.BooleanField(default=True)
     is_shipped = models.BooleanField(default=False)
