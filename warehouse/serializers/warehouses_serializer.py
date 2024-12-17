@@ -6,4 +6,4 @@ from warehouse.models import Warehouses
 class WarehousesSerializer(ModelSerializer):
     class Meta:
         model = Warehouses
-        fields = ["id", "name", "location"]
+        fields = "__all__"

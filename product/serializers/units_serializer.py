@@ -6,4 +6,4 @@ from product.models import Units
 class UnitsSerializer(ModelSerializer):
     class Meta:
         model = Units
-        fields = ["id", "name"]
+        fields = "__all__"

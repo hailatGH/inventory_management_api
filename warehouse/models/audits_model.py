@@ -5,7 +5,8 @@ from django.db import models
 
 from product.models import Products
 from utils.models import Timestamps
-from warehouse.models import Warehouses
+from warehouse.models.stocks_model import Stocks
+from warehouse.models.warehouses_model import Warehouses
 
 
 class Audits(Timestamps):
@@ -16,7 +17,12 @@ class Audits(Timestamps):
     )
     warehouse = models.ForeignKey(Warehouses, on_delete=models.CASCADE, null=False)
     product = models.ForeignKey(Products, on_delete=models.CASCADE, null=False)
-    remark = models.CharField(max_length=1024, null=True)
+    remark = models.CharField(max_length=1024, null=True, blank=True)
 
-    class Meta:
-        unique_together = ("product", "warehouse")
+    def save(self, *args, **kwargs):
+        stock = Stocks.objects.filter(
+            warehouse=self.warehouse, product=self.product
+        ).first()
+        if stock:
+            self.stock_quantity = stock.quantity
+        super().save(*args, **kwargs)
