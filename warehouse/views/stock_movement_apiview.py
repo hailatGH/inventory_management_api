@@ -17,7 +17,7 @@ class StockMovementsAPIView(APIView):
 
     @check_permissions(custom_permissions=["view_stockmovements"])
     @paginate_response()
-    def get(self, request, warehouse_id=None, pk=None):
+    def get(self, request, pk=None):
         if pk:
             return get_object_or_404(StockMovements, pk=pk)
         return StockMovements.objects.all()
