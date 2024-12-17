@@ -21,6 +21,10 @@ class SalesSerializer(ModelSerializer):
             "is_shipped",
             "warehouse",
             "product",
+            "created_at",
+            "updated_at",
+            "sale_warehouse",
+            "sale_product",
         ]
 
     def get_sale_warehouse(self, sale):

@@ -24,6 +24,12 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=60),
 }
 
+STATIC_URL = "static/"
+STATIC_ROOT = "static/"
+
+MEDIA_URL = "media/"
+MEDIA_ROOT = "media/"
+
 # Import setting based on debug val
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 if not DEBUG:
